@@ -3,16 +3,22 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './entities/user.entity';
-import { QueryBuilder, Repository } from 'typeorm';
-import { validate as isUUID } from 'uuid';
+import { Repository } from 'typeorm';
 import { getSearchField } from 'src/common/helpers/search-field.helper';
+import { GetUserPreferencesDto } from './dto/get-user-preferences.dto';
+import { WishlistService } from 'src/wishlist/wishlist.service';
+import { FavoriteService } from 'src/favorite/favorite.service';
 
 @Injectable()
 export class UsersService {
 
   constructor(
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>) {
+    private readonly userRepository: Repository<UserEntity>,
+    private readonly wishlistService: WishlistService,
+    private readonly favoriteService: FavoriteService
+
+  ) {
   }
 
 
@@ -85,6 +91,17 @@ export class UsersService {
       this.handleDbErrors(error);
     }
   }
+
+  async getUserPreferences(getUserPreferencesDto: GetUserPreferencesDto) {
+    const wishlistedContentIds = this.wishlistService.getWishlistedContentIds
+    const favoritedContentIds = this.favoriteService.getFavoritedContentIds
+
+    return {
+      wishlistedContentIds,
+      favoritedContentIds
+    }
+  }
+
 
   private handleDbErrors(error: any) {
     if (error.code === '23505') throw new BadRequestException(error.detail);

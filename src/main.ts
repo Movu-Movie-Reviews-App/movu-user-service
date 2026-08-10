@@ -7,7 +7,7 @@ import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
 
-  const logger = new Logger('User microservice')
+  const logger = new Logger('User Microservice')
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
     transport: Transport.NATS,

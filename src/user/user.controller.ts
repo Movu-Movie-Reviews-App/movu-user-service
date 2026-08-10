@@ -1,7 +1,8 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { UsersService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
+import { GetUserPreferencesDto } from './dto/get-user-preferences.dto';
 
 @Controller()
 export class UsersController {
@@ -30,5 +31,11 @@ export class UsersController {
   @MessagePattern('users.remove')
   remove(@Payload('id', ParseUUIDPipe) id: string) {
     return this.usersService.remove(id);
+  }
+
+  @MessagePattern('users.getPreferences')
+  getPreferences(@Payload() getUserPreferencesDto: GetUserPreferencesDto) {
+
+
   }
 }
