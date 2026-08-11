@@ -24,21 +24,12 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto) {
     try {
-      const { ...userData } = this.userRepository.create(createUserDto);
-      const user = this.userRepository.create({
-        ...userData
-      });
+      const user = this.userRepository.create(createUserDto);
 
       return await this.userRepository.save(user);
-
-
-
     } catch (error) {
-
       this.handleDbErrors(error);
-
     }
-
   }
 
   async findAll() {

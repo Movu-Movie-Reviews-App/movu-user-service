@@ -3,13 +3,14 @@ import { UsersService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { GetUserPreferencesDto } from './dto/get-user-preferences.dto';
+import { CreateUserDto } from './dto';
 
 @Controller()
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
   @MessagePattern('users.create')
-  create(@Payload() createUserDto: any) {
+  create(@Payload() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
