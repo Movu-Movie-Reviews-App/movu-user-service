@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { envs } from './config/envs';
 import { UserEntity } from './user/entities/user.entity';
 import { UsersModule } from './user/user.module';
+import { FavoriteModule } from './favorite/favorite.module';
+import { WishlistModule } from './wishlist/wishlist.module';
 
 
 @Module({
@@ -17,7 +19,9 @@ import { UsersModule } from './user/user.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    UsersModule
+    UsersModule,
+    FavoriteModule,
+    WishlistModule
   ],
 })
 export class AppModule { }

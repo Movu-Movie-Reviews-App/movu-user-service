@@ -15,17 +15,17 @@ export class WishlistController {
   }
 
   @MessagePattern('wishlist.findAllByUser')
-  findAllByUser(@Payload('id', ParseUUIDPipe) id: string) {
-    return this.wishlistService.findAllByUser(id);
+  findAllByUser(@Payload('userId', ParseUUIDPipe) userId: string) {
+    return this.wishlistService.findAllByUser(userId);
   }
 
   @MessagePattern('wishlist.findOne')
-  findOne(@Payload() userId: string, @Payload('contentId', ParseUUIDPipe) contentId: string) {
+  findOne(@Payload('userId', ParseUUIDPipe) userId: string, @Payload('contentId', ParseUUIDPipe) contentId: string) {
     return this.wishlistService.findOne(userId, contentId);
   }
 
   @MessagePattern('wishlist.remove')
-  remove(@Payload() userId: string, @Payload('contentId', ParseUUIDPipe) contentId: string) {
+  remove(@Payload('userId', ParseUUIDPipe) userId: string, @Payload('contentId', ParseUUIDPipe) contentId: string) {
     return this.wishlistService.remove(userId, contentId);
   }
 }
