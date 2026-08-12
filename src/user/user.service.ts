@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './entities/user.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { getSearchField } from 'src/common/helpers/search-field.helper';
 import { GetUserPreferencesDto } from './dto/get-user-preferences.dto';
 import { WishlistService } from 'src/wishlist/wishlist.service';
@@ -37,6 +37,19 @@ export class UsersService {
     const users = await this.userRepository.find();
 
     return users;
+  }
+
+  /**
+   * Bulk lookup for callers that hold a list of userIds (reviews, for one) and need
+   * the display data in a single round trip instead of one call per id.
+   */
+  async findByIds(ids: string[]) {
+
+    if (!ids.length) {
+      return [];
+    }
+
+    return this.userRepository.find({ where: { id: In(ids) } });
   }
 
   async findOne(term: string) {

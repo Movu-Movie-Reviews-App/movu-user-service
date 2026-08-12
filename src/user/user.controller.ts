@@ -19,6 +19,11 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @MessagePattern('users.findByIds')
+  findByIds(@Payload('ids') ids: string[]) {
+    return this.usersService.findByIds(ids);
+  }
+
   @MessagePattern('users.findOne')
   findOne(@Payload('id', ParseUUIDPipe) id: string) {
     return this.usersService.findOne(id);
