@@ -1,6 +1,9 @@
-import { IsEmail, IsOptional, IsString, Matches, MinLength } from "class-validator";
+import { IsEmail, IsOptional, IsString, IsUUID, Matches, MinLength } from "class-validator";
 
 export class CreateUserDto {
+
+    @IsUUID()
+    id: string;
 
     @IsString()
     @Matches(/^(?=.*\p{L})[\p{L}0-9._-]{3,16}$/u, {

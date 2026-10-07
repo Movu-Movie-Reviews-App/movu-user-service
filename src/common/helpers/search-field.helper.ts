@@ -1,5 +1,4 @@
-import { validate as isUUID } from 'uuid';
-import { isEmail } from 'validator';
+import { isEmail, isUUID } from 'validator';
 import { SearchFieldEnum } from '../enums/search-field.enum';
 import { USER_REGEX } from '../constants/regex.constants';
 import { BadRequestException } from '@nestjs/common';
